@@ -88,8 +88,8 @@ function leastSquaresFit(chord,ts) { //IT FUCKIN WORKS FUCK YEAAAAAAAH
     if(chord.length < 4) {
         var c1 = chord[0],
             c4 = chord[chord.length-1],
-            c2 = midpoint(c1,c4,.25),
-            c3 = midpoint(c1,c4,.75);
+            c2 = midpoint(c1,c4,0.25),
+            c3 = midpoint(c1,c4,0.75);
         return new Bezier([c1,c2,c3,c4]);
     }
     var cs = coefficientHelper(chord,ts),

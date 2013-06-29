@@ -119,7 +119,7 @@ function drawCurrentPath() {
 canvas.onmousedown = function(event) {
     mouseDown = true;
     currentPath = [];
-}
+};
 
 canvas.onmouseup = function(event) {
     mouseDown = false;
@@ -132,7 +132,7 @@ canvas.onmouseup = function(event) {
     //strokes[0]=new Stroke(curves); //reparameterize testing
     
     update();
-}
+};
 
 canvas.onmousemove = function(event) {
     var mousePos = [event.clientX,event.clientY];
@@ -149,10 +149,8 @@ canvas.onmousemove = function(event) {
         update();
         c = setArmAngles(0,ang);
         drawCorner(c,[300,300],0,10,context);
-    }*/
-    
-    
-}
+    }*/ 
+};
 
 keydown = function(event) {
     var k = event.keyCode;
@@ -161,7 +159,7 @@ keydown = function(event) {
         strokes.pop();
     }
     update();
-}
+};
 
 window.addEventListener("keydown",keydown,true);
 

@@ -18,7 +18,7 @@ function drawBasicStroke(segment,width,ctx) { //TODO
     
     //corners
     if(comps.length == 1){ //dian
-        var point = midpoint(attrs.startPoint,attrs.endPoint,.5);  //FIXME these stupid width division factors
+        var point = midpoint(attrs.startPoint,attrs.endPoint,0.5);  //FIXME these stupid width division factors
         drawCornerScaled(comps[0],point,degToRad(attrs.startAngle),width/13,attrs.length/20,ctx);
     } else {
         drawCorner(comps[0],attrs.startPoint,degToRad(attrs.startAngle),width/10,ctx);
@@ -42,9 +42,8 @@ Stroke.prototype.drawPlain = function(ctx) {
         var b = this.segments[i].controlPoints;
         ctx.bezierCurveTo(b[1][0],b[1][1],b[2][0],b[2][1],b[3][0],b[3][1]);
     }
-    ctx.stroke();
-        
-}
+    ctx.stroke();      
+};
 
 Stroke.prototype.draw = function(width, ctx) {
     if(DEBUG.DRAW_PLAIN) {
@@ -56,7 +55,7 @@ Stroke.prototype.draw = function(width, ctx) {
     } else { //Compound stroke
         drawCompoundStroke(this,width,ctx);
     }
-}
+};
 
 function drawCompoundStroke(stroke,width,ctx) { //FIXME copypasta
     var numSegments = stroke.segments.length;
@@ -107,7 +106,7 @@ function inRange(num,range) {
 function inRanges(num,ranges) {
     for(var i = 0; i<ranges.length; i++) {
         if(inRange(num,ranges[i]))
-            return true
+            return true;
     }
     return false;
 }
@@ -214,21 +213,33 @@ TH1 = 60;
 TH2 = 40;
 
 OPERATIONS = {
-    "TRUE" : function(a,n,r) {return true;},
-    "IN_RANGE" : function(a,n,r) { for(var i in r)
-                                    if(n>=r[i][0] && n<r[i][1])
-                                        return true;
-                                   return false;},
-    "GREATER_THAN" : function(a,n,r) {return n>=r;},
-    "LESS_THAN" : function(a,n,r) {return n<r;},
-    "OR"       : function(a,n,c) { for(var i in c)
-                                    if(checkCond(a,c[i]))
-                                        return true; 
-                                   return false;},
-    "AND"      : function(a,n,c) { for(var i in c) 
-                                    if(!checkCond(a,c[i]))
-                                        return false; 
-                                   return true;}
+    "TRUE" : function(a,n,r) {
+        return true;
+    },
+    "IN_RANGE" : function(a,n,r) {
+        for(var i in r)
+            if(n>=r[i][0] && n<r[i][1])
+                return true;
+            return false;
+    },
+    "GREATER_THAN" : function(a,n,r) {
+        return n>=r;
+    },
+    "LESS_THAN" : function(a,n,r) {
+        return n<r;
+    },
+    "OR" : function(a,n,c) {
+        for(var i in c)
+            if(checkCond(a,c[i]))
+                return true; 
+            return false;
+    },
+    "AND" : function(a,n,c) {
+        for(var i in c) 
+            if(!checkCond(a,c[i]))
+                return false; 
+            return true;
+    }
 };
 
 RULE_CC_START = [

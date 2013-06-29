@@ -2,10 +2,10 @@
  * A bunch of stuff
  */
 
-function vectorSum(v1,c,v2) {
-    result = [];
-    for(var i = 0; i < v1.length; i++)
-        result[i] = v1[i]+c*v2[i];
+function vectorSum(v1, c, v2) {
+    var result = [];
+    for (var i = 0; i < v1.length; i++)
+        result[i] = v1[i] + c * v2[i];
     return result;
 }
 
@@ -13,27 +13,27 @@ function vectorSum(v1,c,v2) {
  * Prints a matrix in row,column format
  */
 function matrixPrint(matrix) {
-    for(var i = 0; i<matrix.length; i++) {
+    for (var i = 0; i < matrix.length; i++) {
         console.log(matrix[i]);
     }
 }
 
-function zeroes(r,c) {
+function zeroes(r, c) {
     var m = [];
-    for(var i = 0; i<r; i++) {
-        m[i]=[];
-        for(var j = 0; j<c; j++)
-            m[i][j]=0;
+    for (var i = 0; i < r; i++) {
+        m[i] = [];
+        for (var j = 0; j < c; j++)
+            m[i][j] = 0;
     }
     return m;
 }
 
 //Basic matrix operations
 function transpose(m) {
-    var result = zeroes(m[0].length,m.length);
-    for(var r = 0; r<result.length; r++) {
-        for(var c = 0; c<result[0].length; c++) {
-            result[r][c]=m[c][r];
+    var result = zeroes(m[0].length, m.length);
+    for (var r = 0; r < result.length; r++) {
+        for(var c = 0; c < result[0].length; c++) {
+            result[r][c] = m[c][r];
         }
     }
     return result;
@@ -64,14 +64,14 @@ function mMultHelper(m1,m2,r,c) { //does dot producting BS
 function rowProduct(m,r) {
     var result = 1;
     for(var i = 0; i<m[0].length; i++)
-        result *= m[r][i]
+        result *= m[r][i];
     return result;
 }
 
 function colProduct(m,c) {
     var result = 1;
     for(var i = 0; i<m.length; i++)
-        result *= m[i][c]
+        result *= m[i][c];
     return result;
 }
 
@@ -110,6 +110,7 @@ function gElHelper1(vector) {
     for(var i = 0; i<vector.length; i++)
         if(vector[i] != 0)
             return [i,vector[i]];
+    return -1
 }
 
 function gaussianElimination(matrix) {

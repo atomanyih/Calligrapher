@@ -44,18 +44,18 @@ function Bezier(controlPoints) {
 
 Bezier.prototype.getStart = function() {
     return this.controlPoints[0];
-}
+};
 
 Bezier.prototype.getEnd = function() {
     return this.controlPoints[this.order];
-}
+};
 
 Bezier.prototype.getPoint = function(t) {
     return bezierPos(this.controlPoints,t);
-}
+};
 
 Bezier.prototype.drawPlain = function(ctx) {
-    if(this.order = 3) {
+    if(this.order == 3) {
         var c = this.controlPoints;
         ctx.beginPath();
         ctx.moveTo(c[0][0],c[0][1]);
@@ -63,10 +63,10 @@ Bezier.prototype.drawPlain = function(ctx) {
         ctx.stroke();
     }
         
-}
+};
 
 Bezier.prototype.getDerivativeVector = function(t) {
-    var size = .001,
+    var size = 0.001,
         p0 = null,
         p1 = null;
     if(t<size) {
@@ -80,11 +80,11 @@ Bezier.prototype.getDerivativeVector = function(t) {
         p1 = bezierPos(this.controlPoints,t+size); 
     }
     return sub(p1,p0);
-}
+};
 
 Bezier.prototype.getTangentVector = function(t) {
     return normalize(this.getDerivativeVector(t));
-}
+};
 
 Bezier.prototype.getLength = function() {
     var res = 50, //FIXME: can't use resolution :|| that would be circular
@@ -96,39 +96,40 @@ Bezier.prototype.getLength = function() {
         point = this.getPoint(t);
     }
     return len;
-}
+};
 
 Bezier.prototype.getLengthAt = function(t) {
-    return getLengthAtWithStep(t,.01);
-}
+    return getLengthAtWithStep(t,0.01);
+};
 
 Bezier.prototype.getLengthAtWithStep = function(t,s) {
     var tt = 0,
         len = 0,
         point = this.getStart();
     while(tt <= t) {
-        var newPoint = this.getPoint(tt)
+        var newPoint = this.getPoint(tt);
         len += getDist(point,newPoint);
         point = newPoint;
         t += s;
     }
     return len;
-}
+};
 
 Bezier.prototype.getPointByLength = function(l) {//doesn't actually return a point. bad name
     var t = 0,
         len = 0,
         point = this.getStart();
     while(len < l) {
-        var newPoint = this.getPoint(t)
+        var newPoint = this.getPoint(t);
         len += getDist(point,newPoint);
         point = newPoint;
-        t += .01;
+        t += 0.01;
         if(t>=1)
             return 1; //so we don't extrapolate or anything stupid
     }
     return t;
-}
+};
+
 Bezier.prototype.getPointByLengthBack = function(l) {//doesn't actually return a point. bad name
     var t = 1,
         len = 0,
@@ -137,12 +138,12 @@ Bezier.prototype.getPointByLengthBack = function(l) {//doesn't actually return a
         var newPoint = this.getPoint(t)
         len += getDist(point,newPoint);
         point = newPoint;
-        t -= .01;
+        t -= 0.01;
         if(t<=0)
             return 1; //so we don't extrapolate or anything stupid
     }
     return t;
-}
+};
 
 function getSlopeVector(slope,length) {
     var x = length * Math.cos(Math.atan(slope)),

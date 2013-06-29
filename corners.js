@@ -25,7 +25,7 @@ BezierShape.prototype.copy = function() {
     copy.name = this.name;
     copy.skeleton = newSkeleton;
     return copy;
-}
+};
 
 /**
  * Draws the BezierShape NO SCALING OR NUFFIN. Probably only used internally
@@ -48,7 +48,7 @@ BezierShape.prototype.draw = function(ctx) {
         ctx.stroke();
         ctx.globalCompositeOperation = "source-over";
     }
-}
+};
 
 function Bone(points,offset) {
     this.points = points;
@@ -60,7 +60,7 @@ Bone.prototype.copy = function() {
     for(var i in this.points)
         nP[i] = this.points[i].slice(0);
     return new Bone(nP,this.offset);
-}
+};
 
 function drawCornerScaled(corner,pos,dir,width,height,ctx) { //FIXME degree, radian inconsistency
     ctx.save();
@@ -92,7 +92,7 @@ function drawDICorner(corner,attrs,width,ctx) {
 
 
 // HERE ARE SOME CORNERS // some may need to be rotated
-kappa = .5522847498;
+kappa = 0.5522847498;
 // Circle-ish thing. Not a corner.
 CIRCLE = new BezierShape([
     [[-5,0],[-5,-5*kappa],[-5*kappa,-5],[0,-5]],
@@ -117,7 +117,7 @@ C2 = new BezierShape([
 C2.name = "C2";
 
 C3 = new BezierShape([
-    [[-8,5],    [-10,5],     [-10,-5],    [-8,-5]]
+    [[-8,5],    [-10,5],    [-10,-5],   [-8,-5]]
    ,[[-8,-5],   [3,-5],     [15,0],     [15,5]]
    ,[[15,5],    [10,7],     [2,5],      [-8,5]]
 ]);
@@ -200,7 +200,8 @@ C10 = new BezierShape([
     [[-5,-5],[-2,-7],[2,-7],[5,-5]],
     [[5,-5],[6,-5],[6,5],[5,5]],
     [[5,5],[2,7],[-2,7],[-5,5]]
-])
+]);
+
 C10.name = "C10";
 C10.skeleton["armA"] = new Bone([[0,0],[0,1],[0,2],[0,3],[1,0],[1,2],[3,2],[3,3]],0);
 C10.skeleton["armB"] = new Bone([[2,0],[2,1],[2,2],[2,3],[3,0],[3,1],[1,2],[1,3]],0);
@@ -214,6 +215,9 @@ function cosInterpolate(y0,y1,mu) {
     return y0*(1-mu2)+y1*mu2;
 }
 
+/**
+ * Returns a function that linearly interpolates between the values given
+ */
 function linFunction(points) {
     return function(t) {
         if(t==0)

@@ -1,5 +1,5 @@
 // Angle test distance
-var ANG_DIST = .3;
+var ANG_DIST = 0.3;
 
 function getSegAngleStart(curve) {
     var start = curve.getStart(),
